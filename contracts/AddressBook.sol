@@ -14,10 +14,22 @@ contract AddressBook {
         addressToAlias[msg.sender] = _alias;
         aliasToAddress[_alias] = msg.sender;
     }
+
     function getMyAlias() public view returns (string memory) {
         return addressToAlias[msg.sender];
     }
+
     function getAlias(address _addr1) public view returns (string memory) {
         return addressToAlias[_addr1];
+    }
+
+    function getAddress(string memory _alias) public view returns (address) {
+        return aliasToAddress[_alias];
+    }
+
+    function deleteEntry() public {
+        require(bytes(addressToAlias[msg.sender]).length != 0, "No Alias Existing");
+        delete aliasToAddress[addressToAlias[msg.sender]];
+        delete addressToAlias[msg.sender];
     }
 }
