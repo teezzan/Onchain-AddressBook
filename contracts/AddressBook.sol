@@ -39,4 +39,12 @@ contract AddressBook {
         delete aliasToAddress[addressToAlias[msg.sender]];
         delete addressToAlias[msg.sender];
     }
+
+    function deposit(string memory _alias, uint256 _amount) public payable {
+        require(aliasToAddress[_alias] != address(0), "Alias Not On Record!");
+        require(_amount >0, "Cant Send Zero Eth!");
+        
+        (bool success, ) = (msg.sender).call{value: _amount * 1 ether}("");
+        require(success, "Failed to withdraw money from contract.");
+    }
 }

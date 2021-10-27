@@ -25,27 +25,20 @@ const main = async () => {
     await addTxn.wait();
 
     let myAlias = await addressContract.getMyAlias();
-    console.log("Alias 2 ", myAlias);
+    console.log("Alias 1 ", myAlias);
 
-    addTxn = await addressContract.getAddress('@teezzan');;
-    console.log(owner.address)
-    console.log(addTxn)
 
-    addTxn = await addressContract.deleteEntry();
-    await addTxn.wait()
+    addTxn = await addressContract.connect(randomPerson).addAlias('@JayP');;
+    await addTxn.wait();
+
+    let myAlias2 = await addressContract.getAlias(randomPerson.address);
+    console.log("Alias 2", myAlias2);
 
     myAlias = await addressContract.getMyAlias();
-    console.log("Alias 2 ", myAlias);
+    console.log("Alias 1 ", myAlias);
 
-    // let myAlias2 = await addressContract.getAlias(randomPerson.address);
-    // console.log("Alias 2", myAlias2);
-
-    // addTxn = await addressContract.connect(randomPerson).addAlias('@JayP');;
-    // await addTxn.wait();
-
-    // let myAlias3 = await addressContract.getAlias(randomPerson.address);
-    // console.log("Alias 3", myAlias3);
-
+    myAlias2 = await addressContract.getAlias(randomPerson.address);
+    console.log("Alias 2", myAlias2);
 
 };
 
