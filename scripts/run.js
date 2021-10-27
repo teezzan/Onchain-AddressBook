@@ -3,7 +3,7 @@ const main = async () => {
 
     const addressContractFactory = await hre.ethers.getContractFactory('AddressBook');
     const addressContract = await addressContractFactory.deploy({
-        value: hre.ethers.utils.parseEther('0.1'),
+        value: hre.ethers.utils.parseEther('10'),
     });
     await addressContract.deployed();
     console.log('Contract addy:', addressContract.address);
@@ -34,11 +34,18 @@ const main = async () => {
     let myAlias2 = await addressContract.getAlias(randomPerson.address);
     console.log("Alias 2", myAlias2);
 
-    myAlias = await addressContract.getMyAlias();
-    console.log("Alias 1 ", myAlias);
+    let balance = await randomPerson.getBalance()
+    console.log("Old Balance", balance.toString());
 
-    myAlias2 = await addressContract.getAlias(randomPerson.address);
-    console.log("Alias 2", myAlias2);
+
+    let depositTxn = await addressContract.deposit("@JayP", {
+        value: ethers.utils.parseEther("0.1"),
+    });
+    await depositTxn.wait();
+
+    //call for balance
+    balance = await randomPerson.getBalance()
+    console.log("New Balance", balance.toString());
 
 };
 
