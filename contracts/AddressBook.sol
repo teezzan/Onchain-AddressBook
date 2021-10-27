@@ -7,6 +7,10 @@ contract AddressBook {
     mapping(address => string) public addressToAlias;
     mapping(string => address) public aliasToAddress;
 
+    constructor() payable {
+        console.log("We have been constructed!");
+    }
+
     function addAlias(string memory _alias) public {
         // require (bytes(aliasToAddress[_alias]).length == 0, "Alias Taken");
         require(aliasToAddress[_alias] == address(0), "Alias Taken");
@@ -28,7 +32,10 @@ contract AddressBook {
     }
 
     function deleteEntry() public {
-        require(bytes(addressToAlias[msg.sender]).length != 0, "No Alias Existing");
+        require(
+            bytes(addressToAlias[msg.sender]).length != 0,
+            "No Alias Existing"
+        );
         delete aliasToAddress[addressToAlias[msg.sender]];
         delete addressToAlias[msg.sender];
     }
