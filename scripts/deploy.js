@@ -1,7 +1,7 @@
 const main = async () => {
     const addressContractFactory = await hre.ethers.getContractFactory('AddressBook');
     const addressContract = await addressContractFactory.deploy({
-        value: hre.ethers.utils.parseEther('0.1'),
+        // value: hre.ethers.utils.parseEther('1'),
     });
     await addressContract.deployed();
     console.log('Contract addy:', addressContract.address);
